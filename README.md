@@ -8,14 +8,14 @@
 
 This repository contains starter code for the 2021 challenge, details of the tasks, and training and evaluation setups. For an overview of SoundSpaces Challenge visit [soundspaces.org/challenge](https://soundspaces.org/challenge/). 
 
-This year, we are hosting challenges on audio-visual navigation task, where an agent is tasked to find a sound-making object in unmapped 3D environments with visual and auditory perception.
+This year, we are hosting challenges on audio-visual navigation task [1], where an agent is tasked to find a sound-making object in unmapped 3D environments with visual and auditory perception.
 
 
 ## AudioNav Task
-In AudioNav, an agent is spawned at a random starting position and orientation in an unseen environmen. A sound-emitting object is also randomly spawned at a location in the same environment. The agent receives a one-second audio in the form of waveform at each time step and needs to navigate to the target location. No ground-truth map is available and the agent must only use its sensory input (audio and RGB-D) to navigate. 
+In AudioGoal navigation (AudioNav), an agent is spawned at a random starting position and orientation in an unseen environment. A sound-emitting object is also randomly spawned at a location in the same environment. The agent receives a one-second audio input in the form of a waveform at each time step and needs to navigate to the target location. No ground-truth map is available and the agent must only use its sensory input (audio and RGB-D) to navigate.
 
 ### Dataset
-We use [Matterport3D](https://niessner.github.io/Matterport) for the challenge. For the dataset, we use the *train_multiple* and *val_multiple_unheard* [episodes](https://github.com/facebookresearch/sound-spaces/tree/master/soundspaces) from SoundSpaces repository, which are publically available to all participants. The test episodes for the official challenge evaluation won't be provided to participants. And the sounds in the test dataset will also be unheard during training, requiring the agent to generalize to new sounds.
+The challenge will be conducted on the <a href="https://github.com/facebookresearch/sound-spaces/blob/master/soundspaces/README.md">SoundSpaces Dataset</a>, which is based on <a href="https://aihabitat.org/">AI Habitat</a>, <a href="https://niessner.github.io/Matterport//">Matterport3D</a>, and <a href="https://github.com/facebookresearch/Replica-Dataset">Replica</a>. For this challenge, we use the Matterport3D dataset due to its diversity and scale of environments. This challenge focuses on evaluating agents' ability to generalize to unheard sounds and unseen environments. The training and validation splits are the same as used in <i>Unheard Sound</i> experiments reported in the <a href="http://vision.cs.utexas.edu/projects/audio_visual_navigation/">SoundSpaces paper</a>. They can be downloaded from the <a href="https://github.com/facebookresearch/sound-spaces/tree/master/soundspaces">SoundSpaces repo</a>. For the challenge test split, we will use new sounds that are not currently publicly available on the website. 
 
 ### Evaluation
 After calling the STOP action, the agent is evaluated using the 'Success weighted by Path Length' (SPL) metric [2]. 
@@ -30,7 +30,7 @@ An episode is deemed successful if on calling the STOP action, the agent is with
 
 ## Participation Guidelines
 
-Participate in the contest by registering on the [EvalAI challenge page](https://evalai.cloudcv.org/web/challenges/challenge-page/580/overview) and creating a team. Participants will upload docker containers with their agents that evaluated on a AWS GPU-enabled instance. Before pushing the submissions for remote evaluation, participants should test the submission docker locally to make sure it is working. Instructions for training, local evaluation, and online submission are provided below.
+Participate in the contest by registering on the [EvalAI challenge page](https://evalai.cloudcv.org/web/challenges/challenge-page/806/overview) and creating a team. Participants will upload docker containers with their agents that evaluated on a AWS GPU-enabled instance. Before pushing the submissions for remote evaluation, participants should test the submission docker locally to make sure it is working. Instructions for training, local evaluation, and online submission are provided below.
 
 ### Local Evaluation
 
@@ -248,6 +248,14 @@ Please cite the following paper for details about the 2020 PointNav challenge:
 ## Acknowledgments
 
 Thank Oleksandr Maksymets and Rishabh Jain for the technical support. And thank Habitat team for the challenge template.
+
+<!-- The Habitat challenge would not have been possible without the infrastructure and support of [EvalAI](https://evalai.cloudcv.org/) team. We also thank the work behind [Gibson](http://gibsonenv.stanford.edu/) and [Matterport3D](https://niessner.github.io/Matterport/) datasets.  -->
+
+## References
+
+[1] [SoundSpaces: Audio-Visual Navigation in 3D Environments](https://arxiv.org/pdf/1912.11474.pdf). Changan Chen\*, Unnat Jain\*, Carl Schissler, Sebastia Vicenc Amengual Gari, Ziad Al-Halah, Vamsi Krishna Ithapu, Philip Robinson, Kristen Grauman. ECCV, 2020.
+
+[2] [On evaluation of embodied navigation agents](https://arxiv.org/abs/1807.06757). Peter Anderson, Angel Chang, Devendra Singh Chaplot, Alexey Dosovitskiy, Saurabh Gupta, Vladlen Koltun, Jana Kosecka, Jitendra Malik, Roozbeh Mottaghi, Manolis Savva, Amir R. Zamir. arXiv:1807.06757, 2018.
 
 
 ## License
