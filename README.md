@@ -43,9 +43,10 @@ Participate in the contest by registering on the [EvalAI challenge page](https:/
 
 1. Implement your own agent or try one of ours. We provide an agent in `agent.py` that takes random actions:
     ```python
+    import habitat
     import soundspaces
 
-    class RandomAgent(soundspaces.Agent):
+    class RandomAgent(habitat.Agent):
         def reset(self):
             pass
 

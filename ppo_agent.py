@@ -12,7 +12,6 @@ from collections import OrderedDict
 
 import numba
 import numpy as np
-import PIL
 import torch
 from gym.spaces import Box, Dict, Discrete
 
@@ -20,15 +19,9 @@ import habitat
 from habitat import Config
 from habitat.core.agent import Agent
 import soundspaces
-from av_nav.config.default import get_config, get_task_config
-from av_nav.rl.ppo.policy import PointNavBaselinePolicy
-from av_nav.common.utils import batch_obs
-# from habitat_baselines.config.default import get_config
-# from habitat_baselines.rl.ppo import PointNavBaselinePolicy, Policy
-
-# from habitat_baselines.rl.ddppo.policy.resnet_policy import (  # isort:skip noqa
-#     PointNavResNetPolicy,
-# )
+from ss_baselines.av_nav.config import get_config
+from ss_baselines.av_nav.ppo.policy import AudioNavBaselinePolicy
+from ss_baselines.common.utils import batch_obs
 
 
 @numba.njit
@@ -91,7 +84,7 @@ class PPOAgent(Agent):
             goal_sensor_uuid=config.TASK_CONFIG.TASK.GOAL_SENSOR_UUID
         )
 
-        self.actor_critic = PointNavBaselinePolicy(**policy_arguments)
+        self.actor_critic = AudioNavBaselinePolicy(**policy_arguments)
         self.actor_critic.to(self.device)
 
         if config.MODEL_PATH:
@@ -155,8 +148,9 @@ def main():
     parser.add_argument("--model-path", default="", type=str)
     args = parser.parse_args()
 
+    print(config_paths)
     config = get_config(
-        "configs/ppo_audionav.yaml", ["BASE_TASK_CONFIG_PATH", config_paths]
+        "ppo_audionav.yaml", ["BASE_TASK_CONFIG_PATH", config_paths]
     ).clone()
     config.defrost()
     config.TORCH_GPU_ID = 0

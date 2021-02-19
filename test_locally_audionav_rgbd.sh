@@ -23,6 +23,6 @@ docker run \
     -v $(pwd)/data:/data \
     --runtime=nvidia \
     -e "AGENT_EVALUATION_TYPE=local" \
-    -e "TRACK_CONFIG_FILE=/challenge_audionav.local.rgbd.yaml" \
+    -e "TRACK_CONFIG_FILE=challenge_audionav.local.rgbd.yaml" \
     ${DOCKER_NAME}\
   
