@@ -15,7 +15,7 @@ This year, we are hosting challenges on audio-visual navigation task [1], where 
 In AudioGoal navigation (AudioNav), an agent is spawned at a random starting position and orientation in an unseen environment. A sound-emitting object is also randomly spawned at a location in the same environment. The agent receives a one-second audio input in the form of a waveform at each time step and needs to navigate to the target location. No ground-truth map is available and the agent must only use its sensory input (audio and RGB-D) to navigate.
 
 ### Dataset
-The challenge will be conducted on the <a href="https://github.com/facebookresearch/sound-spaces/blob/master/soundspaces/README.md">SoundSpaces Dataset</a>, which is based on <a href="https://aihabitat.org/">AI Habitat</a>, <a href="https://niessner.github.io/Matterport//">Matterport3D</a>, and <a href="https://github.com/facebookresearch/Replica-Dataset">Replica</a>. For this challenge, we use the Matterport3D dataset due to its diversity and scale of environments. This challenge focuses on evaluating agents' ability to generalize to unheard sounds and unseen environments. The training and validation splits are the same as used in <i>Unheard Sound</i> experiments reported in the <a href="http://vision.cs.utexas.edu/projects/audio_visual_navigation/">SoundSpaces paper</a>. They can be downloaded from the <a href="https://github.com/facebookresearch/sound-spaces/tree/master/soundspaces">SoundSpaces repo</a>. For the challenge test split, we will use new sounds that are not currently publicly available on the website. 
+The challenge will be conducted on the <a href="https://github.com/facebookresearch/sound-spaces/blob/master/soundspaces/README.md">SoundSpaces Dataset</a>, which is based on <a href="https://aihabitat.org/">AI Habitat</a>, <a href="https://niessner.github.io/Matterport//">Matterport3D</a>, and <a href="https://github.com/facebookresearch/Replica-Dataset">Replica</a>. For this challenge, we use the Matterport3D dataset due to its diversity and scale of environments. This challenge focuses on evaluating agents' ability to generalize to unheard sounds and unseen environments. The training and validation splits are the same as used in <i>Unheard Sound</i> experiments reported in the <a href="http://vision.cs.utexas.edu/projects/audio_visual_navigation/">SoundSpaces paper</a>. They can be downloaded from the <a href="https://github.com/facebookresearch/sound-spaces/tree/master/soundspaces">SoundSpaces dataset page</a> (including minival). For the challenge test split, we will use new sounds that are not currently publicly available on the website. 
 
 ### Evaluation
 After calling the STOP action, the agent is evaluated using the 'Success weighted by Path Length' (SPL) metric [2]. 
@@ -75,7 +75,8 @@ Note: only supports Linux; no Windows or MacOS.
     ADD agent.py /agent.py
     ADD submission.sh /submission.sh
     ```
-    Build your docker container: `docker build . --file audionav.dockerfile  -t audionav_submission` or using `docker build . --file audionav.dockerfile  -t audionav_submission`. (Note: you may need `sudo` priviliges to run this command.)
+    Build your docker container: `docker build . --file audionav.dockerfile  -t audionav_submission` or using `docker build . --file audionav.dockerfile  -t audionav_submission`. (Note: you may need `sudo` priviliges to run this command.)  
+    In addition to a random agent, we provide the end-to-end RL agent as well as an example checkpoint file (trained) for participants to start with.
 
 2. Following instructions for downloading SoundSpaces [dataset](https://github.com/facebookresearch/sound-spaces/tree/master/soundspaces) and place all data under data/ folder.
 
@@ -97,6 +98,7 @@ Note: only supports Linux; no Windows or MacOS.
           -e "TRACK_CONFIG_FILE=/challenge_objectnav2020.local.rgbd.yaml" \
           ${DOCKER_NAME}
     ``` -->
+    In general, docker does not work very well with symlinks. If you find symlinks not working, simply create a replica of data folder under this directory.
 
 3. Evaluate your docker container locally:
     ```bash

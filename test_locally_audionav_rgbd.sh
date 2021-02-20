@@ -21,6 +21,7 @@ done
 
 docker run \
     -v $(pwd)/data:/data \
+    -v $(pwd)/data/binaural_rirs/mp3d:/data/binaural_rirs/mp3d \
     --runtime=nvidia \
     -e "AGENT_EVALUATION_TYPE=local" \
     -e "TRACK_CONFIG_FILE=challenge_audionav.local.rgbd.yaml" \
