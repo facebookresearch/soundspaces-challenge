@@ -4,11 +4,13 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
-
 import argparse
 import os
 import random
 from collections import OrderedDict
+import logging
+import sys
+import time
 
 import numba
 import numpy as np
@@ -146,7 +148,14 @@ def main():
     )
     config_paths = os.environ["CHALLENGE_CONFIG_FILE"]
     parser.add_argument("--model-path", default="", type=str)
+    parser.add_argument("--wait-time", default=60, type=str)
     args = parser.parse_args()
+
+    # wait for evaluation server to set up.
+    # use 60 for minival and 5400 for test-standard and test-challenge
+    print(f"Start sleeping for {int(args.wait_time) // 60} mins")
+    sys.stdout.flush()
+    time.sleep(int(args.wait_time))
 
     config = get_config(
         "avnav_agent.yaml", ["BASE_TASK_CONFIG_PATH", config_paths]
@@ -166,6 +175,8 @@ def main():
     else:
         challenge = soundspaces.Challenge(eval_remote=True)
 
+    print("Start evaluating ...")
+    sys.stdout.flush()
     challenge.submit(agent)
 
 
