@@ -58,8 +58,6 @@ Participate in the contest by registering on the [EvalAI challenge page](https:/
         challenge = soundspaces.Challenge()
         challenge.submit(agent)
     ```
-    [Optional] Modify submission.sh file if your agent needs any custom modifications (e.g. command-line arguments). Otherwise, nothing to do. Default submission.sh is simply a call to `RandomAgent` agent in `agent.py`. 
-
 
 1. Install [nvidia-docker v2](https://github.com/NVIDIA/nvidia-docker) following instructions here: [https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0)](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0)). 
 Note: only supports Linux; no Windows or MacOS.
@@ -73,7 +71,6 @@ Note: only supports Linux; no Windows or MacOS.
     RUN /bin/bash -c ". activate soundspaces; pip install torch"
 
     ADD agent.py /agent.py
-    ADD submission.sh /submission.sh
     ```
     Build your docker container: `docker build . --file audionav.dockerfile  -t audionav_submission` or using `docker build . --file audionav.dockerfile  -t audionav_submission`. (Note: you may need `sudo` priviliges to run this command.)  
     In addition to a random agent, we provide the end-to-end RL agent as well as an example checkpoint file (trained) for participants to start with.
