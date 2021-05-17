@@ -148,11 +148,10 @@ def main():
     )
     config_paths = os.environ["CHALLENGE_CONFIG_FILE"]
     parser.add_argument("--model-path", default="", type=str)
-    parser.add_argument("--wait-time", default=60, type=str)
+    parser.add_argument("--wait-time", default=90, type=str)
     args = parser.parse_args()
 
     # wait for evaluation server to set up.
-    # use 60 for minival and 5400 for test-standard and test-challenge
     print(f"Start sleeping for {int(args.wait_time) // 60} mins")
     sys.stdout.flush()
     time.sleep(int(args.wait_time))
