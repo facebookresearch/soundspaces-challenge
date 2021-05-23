@@ -137,7 +137,7 @@ The challenge consists of the following phases:
 Note: Your agent will be evaluated on 1000-2000 episodes and will have a total available time of 24 hours to finish. Your submissions will be evaluated on AWS EC2 p2.xlarge instance which has a Tesla K80 GPU (12 GB Memory), 4 CPU cores, and 61 GB RAM. If you need more time/resources for evaluation of your submission please get in touch. If you face any issues or have questions you can ask them by opening an issue on this repository.
 
 ### AudioNav Baselines and Starter Code
-We have added a config in `configs/ppo_pointnav.yaml` that includes the av-nav baseline using PPO from SoundSpaces. 
+We included both the configs and dockerfiles for [av-nav](https://github.com/facebookresearch/sound-spaces/tree/master/ss_baselines/av_nav) and [av-wan](https://github.com/facebookresearch/sound-spaces/tree/master/ss_baselines/av_wan). Note that the [MapNav environment](https://github.com/facebookresearch/sound-spaces/blob/soundspaces-challenge/ss_baselines/av_wan/mapnav_env.py) used by av-wan is baked into the environment container and can't be changed. We suggest you to re-write that planning for loop in the agent code if you want to modify mapping or planning.
 
 <!-- 1. Install the [Habitat-Sim](https://github.com/facebookresearch/habitat-sim/) and [Habitat-Lab](https://github.com/facebookresearch/habitat-lab/) packages. Also ensure that habitat-baselines is installed when installing Habitat-Lab by installing it with ```python setup.py develop --all```
 
