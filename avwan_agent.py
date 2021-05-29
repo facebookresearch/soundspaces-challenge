@@ -147,7 +147,7 @@ class PPOAgent(Agent):
                 self.test_recurrent_hidden_states,
                 self.prev_actions,
                 self.not_done_masks,
-                deterministic=False,
+                deterministic=True,
             )
             #  Make masks not done till reset (end of episode) will be called
             self.not_done_masks.fill_(1.0)
