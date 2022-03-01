@@ -1,28 +1,4 @@
 #!/usr/bin/env bash
 
-DOCKER_NAME="audionav_submission"
-
-while [[ $# -gt 0 ]]
-do
-key="${1}"
-
-case $key in
-      --docker-name)
-      shift
-      DOCKER_NAME="${1}"
-	  shift
-      ;;
-    *) # unknown arg
-      echo unkown arg ${1}
-      exit
-      ;;
-esac
-done
-
-docker run \
-    -v $(pwd)/data:/data \
-    --runtime=nvidia \
-    -e "AGENT_EVALUATION_TYPE=local" \
-    -e "TRACK_CONFIG_FILE=challenge_audionav.local.rgbd.yaml" \
-    ${DOCKER_NAME}\
+env CHALLENGE_CONFIG_FILE="configs/challenge_audionav.local.rgbd.yaml" python avnav_agent.py --input-type depth --model-path example_ckpt.pth
   

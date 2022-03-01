@@ -12,7 +12,9 @@ import numpy
 
 import habitat
 import soundspaces
-from av_nav.config.default import get_task_config
+# from av_nav.config.default import get_task_config
+from ss_baselines.av_nav.config.default import get_task_config
+from eval import Challenge2022
 
 
 class RandomAgent(habitat.Agent):
@@ -23,13 +25,13 @@ class RandomAgent(habitat.Agent):
         pass
 
     def act(self, observations):
-        return {"action": numpy.random.choice(self._POSSIBLE_ACTIONS)}
+        return numpy.random.choice(len(self._POSSIBLE_ACTIONS))
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--evaluation", type=str, required=True, choices=["local", "remote"]
+        "--run-dir",  type=str, default="runs/",
     )
     args = parser.parse_args()
 
@@ -37,12 +39,9 @@ def main():
     config = get_task_config(config_paths)
     agent = RandomAgent(task_config=config)
 
-    if args.evaluation == "local":
-        challenge = soundspaces.Challenge(eval_remote=False)
-    else:
-        challenge = soundspaces.Challenge(eval_remote=True)
+    challenge = Challenge2022()
 
-    challenge.submit(agent)
+    challenge.submit(agent, run_dir=args.run_dir, json_filename=f"random_{config.DATASET.SPLIT}.json")
 
 
 if __name__ == "__main__":

@@ -24,6 +24,7 @@ import soundspaces
 from ss_baselines.av_nav.config import get_config
 from ss_baselines.av_nav.ppo.policy import AudioNavBaselinePolicy
 from ss_baselines.common.utils import batch_obs
+from eval import Challenge2022
 
 
 @numba.njit
@@ -143,22 +144,17 @@ def main():
     parser.add_argument(
         "--input-type", default="blind", choices=["blind", "rgb", "depth", "rgbd"]
     )
-    parser.add_argument(
-        "--evaluation", type=str, required=True, choices=["local", "remote"]
-    )
     config_paths = os.environ["CHALLENGE_CONFIG_FILE"]
     parser.add_argument("--model-path", default="", type=str)
-    parser.add_argument("--wait-time", default=90, type=str)
+    parser.add_argument(
+        "--run-dir",  type=str, default="runs/",
+    )
     args = parser.parse_args()
 
-    # wait for evaluation server to set up.
-    print(f"Start sleeping for {int(args.wait_time) // 60} mins")
-    sys.stdout.flush()
-    time.sleep(int(args.wait_time))
-
     config = get_config(
-        "avnav_agent.yaml", ["BASE_TASK_CONFIG_PATH", config_paths]
+        "configs/avnav_agent.yaml", ["BASE_TASK_CONFIG_PATH", config_paths]
     ).clone()
+
     config.defrost()
     config.TORCH_GPU_ID = 0
     config.INPUT_TYPE = args.input_type
@@ -168,15 +164,12 @@ def main():
     config.freeze()
 
     agent = PPOAgent(config)
-    if args.evaluation == "local":
-        challenge = soundspaces.Challenge(eval_remote=False)
-        challenge._env.seed(config.RANDOM_SEED)
-    else:
-        challenge = soundspaces.Challenge(eval_remote=True)
+
+    challenge = Challenge2022()
+    challenge._env.seed(config.RANDOM_SEED)
 
     print("Start evaluating ...")
-    sys.stdout.flush()
-    challenge.submit(agent)
+    challenge.submit(agent, run_dir=args.run_dir, json_filename=f"avnav_{config.TASK_CONFIG.DATASET.SPLIT}.json")
 
 
 if __name__ == "__main__":
