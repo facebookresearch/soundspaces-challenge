@@ -36,7 +36,7 @@ Participate in the contest by registering on the [EvalAI challenge page](https:/
 1. Clone the challenge repository:  
 
     ```bash
-    git clone https://github.com/changanvr/soundspaces-challenge.git
+    git clone https://github.com/facebookresearch/soundspaces-challenge.git
     cd soundspaces-challenge
     ```
 
