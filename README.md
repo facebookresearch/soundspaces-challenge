@@ -81,7 +81,7 @@ Valid challenge phases are `soundspaces22-audionav-{minival, test-std}`.
 The challenge consists of the following phases:
 
 1. **Minival phase**: This split is same as the one used in `./test_locally_audionav_rgbd.sh`. The purpose of this phase/split is sanity checking -- to confirm that your online submission to EvalAI doesn't run into any issue during evaluation. Each team is allowed maximum of 30 submission per day for this phase. 
-2. **Test Standard phase**: The purpose of this phase/split is to serve as the public leaderboard establishing the state of the art; this is what should be used to report results in papers. Each team is allowed maximum of 10 submission per day for this phase. As a reminder, the submitted trajectories will be used to validate the submitted performance values. Suspicious submissions will be reviewed and if necessary, the participating team will be disqualified. 
+2. **Test Standard phase**: The purpose of this phase is to serve as the public leaderboard establishing the state of the art; this is what should be used to report results in papers. The relevant split for this phase is `test_multiple_unheard`. Each team is allowed maximum of 10 submission per day for this phase. As a reminder, the submitted trajectories will be used to validate the submitted performance values. Suspicious submissions will be reviewed and if necessary, the participating team will be disqualified. 
 
 Note: If you face any issues or have questions you can ask them by mailing the organizers or opening an issue on this repository.
 
