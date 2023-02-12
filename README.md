@@ -4,9 +4,9 @@
 
 --------------------------------------------------------------------------------
 
-# SoundSpaces Challenge 2022
+# SoundSpaces Challenge 2023
 
-This repository contains starter code for the 2022 challenge, details of the tasks, and training and evaluation setups. For an overview of SoundSpaces Challenge visit [soundspaces.org/challenge](https://soundspaces.org/challenge/). 
+This repository contains starter code for the 2023 challenge, details of the tasks, and training and evaluation setups. For an overview of SoundSpaces Challenge visit [soundspaces.org/challenge](https://soundspaces.org/challenge/). 
 
 This year, we are hosting challenges on audio-visual navigation task [1], where an agent is tasked to find a sound-making object in unmapped 3D environments with visual and auditory perception.
 
@@ -30,7 +30,7 @@ An episode is deemed successful if on calling the STOP action, the agent is with
 
 ## Participation Guidelines
 
-Participate in the contest by registering on the [EvalAI challenge page](https://eval.ai/web/challenges/challenge-page/1621/overview)<!--EvalAI challenge page (coming soon)--> and creating a team. Participants will upload JSON files containing the evaluation metric values for the challenge and the trajectories executed by their model. The trajectories will be used to validate the submitted performance values. Suspicious submissions will be reviewed and if necessary, the participating team will be disqualified. Instructions for evaluation and online submission are provided below.
+Participate in the contest by registering on the <!--[EvalAI challenge page](https://eval.ai/web/challenges/challenge-page/1959/overview)-->EvalAI challenge page (coming soon) and creating a team. Participants will upload JSON files containing the evaluation metric values for the challenge and the trajectories executed by their model. The trajectories will be used to validate the submitted performance values. Suspicious submissions will be reviewed and if necessary, the participating team will be disqualified. Instructions for evaluation and online submission are provided below.
 
 ### Evaluation
 1. Clone the challenge repository:  
@@ -74,9 +74,9 @@ Participate in the contest by registering on the [EvalAI challenge page](https:/
 
 ### Online submission
 
-Follow instructions in the `submit` tab of the [EvalAI challenge page](https://eval.ai/web/challenges/challenge-page/1621/overview)<!--EvalAI challenge page (coming soon)--> to **upload** your evaluation JSON file.
+Follow instructions in the `submit` tab of the <!--[EvalAI challenge page](https://eval.ai/web/challenges/challenge-page/1959/overview)-->EvalAI challenge page (coming soon) to **upload** your evaluation JSON file.
 
-Valid challenge phases are `soundspaces22-audionav-{minival, test-std}`.
+Valid challenge phases are `soundspaces23-audionav-{minival, test-std}`.
 
 The challenge consists of the following phases:
 
