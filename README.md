@@ -8,31 +8,39 @@
 
 This repository contains starter code for the 2023 challenge, details of the tasks, and training and evaluation setups. For an overview of SoundSpaces Challenge visit [soundspaces.org/challenge](https://soundspaces.org/challenge/). 
 
-This year, we are hosting challenges on audio-visual navigation task [1], where an agent is tasked to find a sound-making object in unmapped 3D environments with visual and auditory perception.
+This year, we are hosting two challenges: the first one is on the audio-visual navigation task [1], where an agent is tasked to find a sound-making object in unmapped 3D environments with visual and auditory perception, and the second one is on the active audio-visual source separation task [3], where an agent is tasked to separate a target sound-making object emitting time-varying sounds from an audio mixture comprising spatial time-varying sounds from multiple sound sources.
 
 
-## AudioNav Task
+## Task
 In AudioGoal navigation (AudioNav), an agent is spawned at a random starting position and orientation in an unseen environment. A sound-emitting object is also randomly spawned at a location in the same environment. The agent receives a one-second audio input in the form of a waveform at each time step and needs to navigate to the target location. No ground-truth map is available and the agent must only use its sensory input (audio and RGB-D) to navigate.
 
+In Active Audio-Visual Separation (active AV separation), an agent is spawned at a random starting position and orientation in an unseen environment. Multiple sound-emitting objects, each of which emits a time-varying sound, are also randomly spawned at a location in the same environment.
+The agent receives a one-second audio input in the form of a waveform, which is a mixture of the spatial sounds from all sources, at each time step and needs to navigate to separate the audio from a target source, denoted by a target class label, at every step of its motion.
+No ground-truth map is available and the agent must only use its sensory input (audio and RGB) to navigate. The current version of the challenge considers separation scenarios like speech vs. speech and speech. vs. music.
+
 ### Dataset
-The challenge will be conducted on the <a href="https://github.com/facebookresearch/sound-spaces/blob/master/soundspaces/README.md">SoundSpaces Dataset</a>, which is based on <a href="https://aihabitat.org/">AI Habitat</a>, <a href="https://niessner.github.io/Matterport//">Matterport3D</a>, and <a href="https://github.com/facebookresearch/Replica-Dataset">Replica</a>. For this challenge, we use the Matterport3D dataset due to its diversity and scale of environments. This challenge focuses on evaluating agents' ability to generalize to unheard sounds and unseen environments. The training and validation splits are the same as used in <i>Unheard Sound</i> experiments reported in the <a href="http://vision.cs.utexas.edu/projects/audio_visual_navigation/">SoundSpaces paper</a>. They can be downloaded from the <a href="https://github.com/facebookresearch/sound-spaces/tree/master/soundspaces">SoundSpaces dataset page</a> (including minival).  
+The challenge will be conducted on the <a href="https://github.com/facebookresearch/sound-spaces/blob/master/soundspaces/README.md">SoundSpaces Dataset</a>, which is based on <a href="https://aihabitat.org/">AI Habitat</a>, <a href="https://niessner.github.io/Matterport//">Matterport3D</a>, and <a href="https://github.com/facebookresearch/Replica-Dataset">Replica</a>. For this challenge, we use the Matterport3D dataset due to its diversity and scale of environments. This challenge focuses on evaluating agents' ability to generalize to unheard sounds and unseen environments. For AudioNav, the training and validation splits are the same as used in <i>Unheard Sound</i> experiments reported in the <a href="http://vision.cs.utexas.edu/projects/audio_visual_navigation/">SoundSpaces paper</a>. They can be downloaded from the <a href="https://github.com/facebookresearch/sound-spaces/tree/master/soundspaces">SoundSpaces dataset page</a> (including minival). For active AV separation, the training and validation splits are the same as used in <i>Unheard Sound</i> experiments reported in the <a href="https://vision.cs.utexas.edu/projects/active-av-dynamic-separation//">Active AV Dynamic Separation paper</a>. 
 
 ### Evaluation
-After calling the STOP action, the agent is evaluated using the 'Success weighted by Path Length' (SPL) metric [2]. 
+For AudioNav, after calling the STOP action, the agent is evaluated using the 'Success weighted by Path Length' (SPL) metric [2]. An episode is deemed successful if on calling the STOP action, the agent is within 0.36m (2x agent-radius) of the goal position.
 
 <p align="center">
   <img src='res/img/spl.png' />
 </p>
 
 
-An episode is deemed successful if on calling the STOP action, the agent is within 0.36m (2x agent-radius) of the goal position.
+For active AV separation, the agent is evaluated using the 'Scale-invariant source-to-distortion ratio' (SI-SDR) metric, averaged over the whole agent trajectory.
 
+<p align="center">
+  <img width="500" height="250" src='res/img/sep_metrics.png' />
+</p>
 
 ## Participation Guidelines
 
-Participate in the contest by registering on the <!--[EvalAI challenge page](https://eval.ai/web/challenges/challenge-page/1959/overview)-->EvalAI challenge page (coming soon) and creating a team. Participants will upload JSON files containing the evaluation metric values for the challenge and the trajectories executed by their model. The trajectories will be used to validate the submitted performance values. Suspicious submissions will be reviewed and if necessary, the participating team will be disqualified. Instructions for evaluation and online submission are provided below.
+Participate in the contest by registering on the <!--[EvalAI challenge page](https://eval.ai/web/challenges/challenge-page/1959/overview)-->EvalAI challenge page (coming soon) and creating a team. Participants will upload JSON files containing the evaluation metric values for both challenges. For AV Nav, participants will also upload the trajectories executed by their model, which will be used to validate the submitted performance values. For active AV separation, the winning teams will be later asked to turn in their code and checkpoints for inspection. Suspicious submissions will be reviewed and if necessary, the participating team will be disqualified. Instructions for evaluation and online submission are provided below.
 
 ### Evaluation
+For AudioNav, 
 1. Clone the challenge repository:  
 
     ```bash
@@ -72,21 +80,26 @@ Participate in the contest by registering on the <!--[EvalAI challenge page](htt
     **Make sure that the json that gets dumped upon evaluating your agent is of the exact same type**. The easiest way to ensure that is by not modifying `eval.py`.
 
 
+For active AV separation, follow instructions in the `challenge` branch of the [active-AV-dynamic-separation](https://https://github.com/SAGNIKMJR/active-AV-dynamic-separation) repository.
+
 ### Online submission
 
 Follow instructions in the `submit` tab of the <!--[EvalAI challenge page](https://eval.ai/web/challenges/challenge-page/1959/overview)-->EvalAI challenge page (coming soon) to **upload** your evaluation JSON file.
 
-Valid challenge phases are `soundspaces23-audionav-{minival, test-std}`.
+Valid challenge phases are `AudioNav {Minival, Test-Standard} Phase` and `AudioSep Test-Standard Phase`.
 
 The challenge consists of the following phases:
 
-1. **Minival phase**: This split is same as the one used in `./test_locally_audionav_rgbd.sh`. The purpose of this phase/split is sanity checking -- to confirm that your online submission to EvalAI doesn't run into any issue during evaluation. Each team is allowed maximum of 30 submission per day for this phase. 
-2. **Test Standard phase**: The purpose of this phase is to serve as the public leaderboard establishing the state of the art; this is what should be used to report results in papers. The relevant split for this phase is `test_multiple_unheard`. Each team is allowed maximum of 10 submission per day for this phase. As a reminder, the submitted trajectories will be used to validate the submitted performance values. Suspicious submissions will be reviewed and if necessary, the participating team will be disqualified. 
+1. **AudioNav Minival Phase**: This split is same as the one used in `./test_locally_audionav_rgbd.sh`. The purpose of this phase/split is sanity checking -- to confirm that your online submission to EvalAI doesn't run into any issue during evaluation. Each team is allowed maximum of 30 submission per day for this phase. 
+2. **AudioNav Test-Standard Phase**: The purpose of this phase is to serve as the public leaderboard establishing the state of the art for AudioNav; this is what should be used to report results in papers. The relevant split for this phase is `test_multiple_unheard`. Each team is allowed maximum of 10 submission per day for this phase. As a reminder, the submitted trajectories will be used to validate the submitted performance values. Suspicious submissions will be reviewed and if necessary, the participating team will be disqualified. 
+2. **AudioSep Test-Standard Phase**: The purpose of this phase is to serve as the public leaderboard establishing the state of the art for active AV separation; this is what should be used to report results in papers. The relevant split for this phase is `testUnheard_1000episodes`. Each team is allowed maximum of 30 submission per day for this phase. As a reminder, the winning teams of the active AV separation challenge will be later asked to turn in their code and checkpoints for inspection. Suspicious submissions will be reviewed and if necessary, the participating team will be disqualified. 
 
 Note: If you face any issues or have questions you can ask them by mailing the organizers or opening an issue on this repository.
 
-### AudioNav Baselines and Starter Code
-We included both the configs and Python scripts for [av-nav](https://github.com/facebookresearch/sound-spaces/tree/master/ss_baselines/av_nav) and [av-wan](https://github.com/facebookresearch/sound-spaces/tree/master/ss_baselines/av_wan). Note that the [MapNav environment](https://github.com/facebookresearch/sound-spaces/blob/soundspaces-challenge/ss_baselines/av_wan/mapnav_env.py) used by av-wan is baked into the environment container and can't be changed. We suggest you to re-write that planning for loop in the agent code if you want to modify mapping or planning.
+### Baselines and Starter Code
+1. **AudioNav**: We included both the configs and Python scripts for [av-nav](https://github.com/facebookresearch/sound-spaces/tree/master/ss_baselines/av_nav) and [av-wan](https://github.com/facebookresearch/sound-spaces/tree/master/ss_baselines/av_wan). Note that the [MapNav environment](https://github.com/facebookresearch/sound-spaces/blob/soundspaces-challenge/ss_baselines/av_wan/mapnav_env.py) used by av-wan is baked into the environment container and can't be changed. We suggest you to re-write that planning for loop in the agent code if you want to modify mapping or planning.
+
+2. **Active AV Separation**: We have included configs and Python in the `challenge` branch of the [active-AV-dynamic-separation](https://https://github.com/SAGNIKMJR/active-AV-dynamic-separation) repository.
 
 
 ## Acknowledgments
@@ -99,6 +112,8 @@ Thank Habitat team for the challenge template.
 [1] [SoundSpaces: Audio-Visual Navigation in 3D Environments](https://arxiv.org/pdf/1912.11474.pdf). Changan Chen\*, Unnat Jain\*, Carl Schissler, Sebastia Vicenc Amengual Gari, Ziad Al-Halah, Vamsi Krishna Ithapu, Philip Robinson, Kristen Grauman. ECCV, 2020.
 
 [2] [On evaluation of embodied navigation agents](https://arxiv.org/abs/1807.06757). Peter Anderson, Angel Chang, Devendra Singh Chaplot, Alexey Dosovitskiy, Saurabh Gupta, Vladlen Koltun, Jana Kosecka, Jitendra Malik, Roozbeh Mottaghi, Manolis Savva, Amir R. Zamir. arXiv:1807.06757, 2018.
+
+[3] [Active Audio-Visual Separation of Dynamic Sound Sources](https://arxiv.org/pdf/2202.00850.pdf). Sagnik Majumder, Kristen Grauman. ECCV, 2022.
 
 
 ## License
