@@ -84,7 +84,7 @@ For active AV separation, follow instructions in the `challenge` branch of the [
 
 ### Online submission
 
-Follow instructions in the `submit` tab of the <!--[EvalAI challenge page](https://eval.ai/web/challenges/challenge-page/1959/overview)-->EvalAI challenge page (coming soon) to **upload** your evaluation JSON file.
+Follow instructions in the `submit` tab of the [EvalAI challenge page](https://eval.ai/web/challenges/challenge-page/1971/overview) (will open soon!)<!-- EvalAI challenge page (coming soon) --> to **upload** your evaluation JSON file.
 
 Valid challenge phases are `AudioNav {Minival, Test-Standard} Phase` and `AudioSep Test-Standard Phase`.
 
