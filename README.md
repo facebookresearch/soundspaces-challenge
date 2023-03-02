@@ -37,7 +37,7 @@ For active AV separation, the agent is evaluated using the 'Scale-invariant sour
 
 ## Participation Guidelines
 
-Participate in the contest by registering on the <!--[EvalAI challenge page](https://eval.ai/web/challenges/challenge-page/1959/overview)-->EvalAI challenge page (coming soon) and creating a team. Participants will upload JSON files containing the evaluation metric values for both challenges. For AV Nav, participants will also upload the trajectories executed by their model, which will be used to validate the submitted performance values. For active AV separation, the winning teams will be later asked to turn in their code and checkpoints for inspection. Suspicious submissions will be reviewed and if necessary, the participating team will be disqualified. Instructions for evaluation and online submission are provided below.
+Participate in the contest by registering on the [EvalAI challenge page](https://eval.ai/web/challenges/challenge-page/1971/overview)<!--EvalAI challenge page (coming soon)--> and creating a team. Participants will upload JSON files containing the evaluation metric values for both challenges. For AV Nav, participants will also upload the trajectories executed by their model, which will be used to validate the submitted performance values. For active AV separation, the winning teams will be later asked to turn in their code and checkpoints for inspection. Suspicious submissions will be reviewed and if necessary, the participating team will be disqualified. Instructions for evaluation and online submission are provided below.
 
 ### Evaluation
 For AudioNav, 
